@@ -90,6 +90,9 @@
     .cc-contact-information {
       background: url('https://images.pexels.com/photos/248515/pexels-photo-248515.png?w=1920&h=1080&auto=compress&cs=tinysrgb');
     }
+    .nav-pills .nav-item .nav-link {
+      padding: 15px 15px 15px 15px;
+    }
     .bg-red {
       background-color: #E74C3C!important;
     }
@@ -138,17 +141,23 @@
       background-color: #fff;
       border-color: #fff;
     }
+    .cc-facebook:hover {
+      color: #4267B2;
+    }
     .btn-tw:hover {
       color: #1DA1F2;
       background-color: #fff;
       border-color: #fff;
+    }
+    .cc-twitter:hover {
+      color: #1DA1F2;
     }
     .btn-ig:hover {
       color: #D92E7F;
       background: #fff;
       border-color: #fff;
     }
-    .cc-instagram:hover i {
+    .cc-instagram:hover {
       color: #D92E7F;
     }
     .btn-ld:hover {
@@ -156,7 +165,7 @@
       background-color: #fff;
       border-color: #fff;
     }
-    .cc-linkedin:hover i {
+    .cc-linkedin:hover {
       color: #0077B5;
     }
     .btn-gh:hover {
@@ -164,7 +173,7 @@
       background-color: #fff;
       border-color: #fff;
     }
-    .cc-github:hover i {
+    .cc-github:hover {
       color: #24292E;
     }
     .btn-gp:hover {
@@ -181,12 +190,25 @@
     .form-group .input-group-addon, .input-group .input-group-addon {
       padding: .5rem .75rem;
     }
-    .modal.modal-primary .modal-content {
+    .modal.modal-primary .modal-content, .modal.modal-primary .modal-content a {
       color: #E74C3C;
       background-color: #fff;
     }
+    .modal.modal-primary .modal-content small {
+      color: #f7f7f7;
+      cursor: default;
+    }
     .cc-reference .carousel-indicators .active {
       background-color: #E74C3C;
+    }
+    .red-text {
+      color: #E74C3C;
+      transition: all 0.5s ease;
+    }
+    .red-text:hover {
+      text-decoration: none;
+      color: #d62c1a;
+      text-shadow: #24292E;
     }
     .sidebar-collapse .navbar-collapse:before {
       background: linear-gradient(#E74C3C 0%, #000 80%);

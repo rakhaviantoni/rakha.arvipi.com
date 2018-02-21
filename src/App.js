@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
+import fontawesome from '@fortawesome/fontawesome';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import brands from '@fortawesome/fontawesome-free-brands';
+import solid from '@fortawesome/fontawesome-free-solid';
 import './App.css';
 import './Aos.min.css';
 import './Bootstrap.min.css';
 
 class App extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
   componentDidMount(){
+    this.Steam();
     const ele = document.getElementById('ipl-progress-indicator')
     if(ele){
       setTimeout(() => {
@@ -17,7 +27,19 @@ class App extends Component {
     }
   }
 
+  Steam() {
+    fetch('https://api.opendota.com/api/players/177695358')
+      .then(response => response.json())
+      .then(response => 
+        // { console.log(response.profile.personaname) })
+        { this.setState({ avatar: response.profile.avatarfull,
+                          url: response.profile.profileurl,
+                          name: response.profile.personaname,
+                          mmr: response.solo_competitive_rank }) })
+  }
+
   render() {
+
     function combine(name) {
       return name.first + ' ' + name.last;
     }
@@ -26,6 +48,8 @@ class App extends Component {
       first: 'Rakha',
       last: 'Viantoni Prastya'
     };
+
+    fontawesome.library.add(brands, solid);
 
     return (
       <div className="App">
@@ -76,24 +100,28 @@ class App extends Component {
               </div>
               <div className="modal fade modal-mini modal-primary" id="RakhaViantoni" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div className="modal-dialog">
-                      <div className="modal-content">
-                          <div className="modal-header justify-content-center">
-                              <img src="https://media-exp2.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAARUAAAAJDNmYWJhYWE0LTNiNDctNDM5My1hOWJjLTkyMzRkMGU1M2QzNg.jpg" className="rounded-circle" alt="Rakha Viantoni"/>
-                          </div>
-                          <div className="modal-body">
-                            <p><strong>{combine(name)}</strong><br/>Full-stack Web Developer</p>
-                          </div>
-                      </div>
+                  <div className="modal-content">
+                    <div className="modal-header justify-content-center">
+                      <img src={this.state.avatar} className="rounded-circle" alt={this.state.name} title={this.state.name} />
+                    </div>
+                    <div className="modal-body">
+                      <p><strong>Easter Egg! <FontAwesomeIcon icon="fire" /><br/>
+                          You got my Steam page!<br/>v v v v v v<br/>
+                          <a href={this.state.url} title="Visit Steam Profile Page" target='_blank' rel="noopener noreferrer">{this.state.name}</a><br/>
+                          <small>Latest Solo MMR: {this.state.mmr}</small><br/>
+                          Let's Roll! <FontAwesomeIcon icon={["fab", "hotjar"]} /></strong></p>
+                    </div>
+                  </div>
                   </div>
               </div>
               <div className="section">
                 <div className="container">
                   <div className="button-container">
-                    <a className="btn btn-fb btn-round btn-lg btn-icon" href="https://facebook.com/rakatonii" target='_blank' rel="noopener noreferrer" title="Follow me on Facebook"><i className="fab fa-facebook-f fa-3x"></i></a>
-                    <a className="btn btn-tw btn-round btn-lg btn-icon" href="https://twitter.com/rakhaviantoni" target='_blank' rel="noopener noreferrer" title="Follow me on Twitter"><i className="fab fa-twitter fa-3x"></i></a>
-                    <a className="btn btn-ig btn-round btn-lg btn-icon" href="https://www.instagram.com/rakhaviantoni/" target='_blank' rel="noopener noreferrer" title="Follow me on Instagram"><i className="fab fa-instagram fa-3x"></i></a>
-                    <a className="btn btn-ld btn-round btn-lg btn-icon" href="https://www.linkedin.com/in/rakhaviantoni/" target='_blank' rel="noopener noreferrer" title="Follow me on Linkedin"><i className="fab fa-linkedin-in fa-3x"></i></a>
-                    <a className="btn btn-gh btn-round btn-lg btn-icon" href="https://www.github.com/rakhaviantoni/" target='_blank' rel="noopener noreferrer" title="Follow me on Github"><i className="fab fa-github-alt fa-3x"></i></a>
+                    <a className="btn btn-fb btn-round btn-lg btn-icon" href="https://facebook.com/rakatonii" target='_blank' rel="noopener noreferrer" title="Follow me on Facebook"><FontAwesomeIcon icon={["fab", "facebook-f"]} size="3x" /></a>
+                    <a className="btn btn-tw btn-round btn-lg btn-icon" href="https://twitter.com/rakhaviantoni" target='_blank' rel="noopener noreferrer" title="Follow me on Twitter"><FontAwesomeIcon icon={["fab", "twitter"]} size="3x" /></a>
+                    <a className="btn btn-ig btn-round btn-lg btn-icon" href="https://www.instagram.com/rakhaviantoni/" target='_blank' rel="noopener noreferrer" title="Follow me on Instagram"><FontAwesomeIcon icon={["fab", "instagram"]} size="3x" /></a>
+                    <a className="btn btn-ld btn-round btn-lg btn-icon" href="https://www.linkedin.com/in/rakhaviantoni/" target='_blank' rel="noopener noreferrer" title="Follow me on Linkedin"><FontAwesomeIcon icon={["fab", "linkedin-in"]} size="3x" /></a>
+                    <a className="btn btn-gh btn-round btn-lg btn-icon" href="https://www.github.com/rakhaviantoni/" target='_blank' rel="noopener noreferrer" title="Follow me on Github"><FontAwesomeIcon icon={["fab", "github"]} size="3x" /></a>
                     {/* <a className="btn btn-gp btn-round btn-lg btn-icon" href="https://plus.google.com/u/0/+RakhaViantoniPrastya/" target='_blank' rel="noopener noreferrer" title="Follow me on Google+"><i className="fab fa-google-plus-g fa-3x"></i></a> */}
                   </div>
                 </div>
@@ -149,22 +177,22 @@ class App extends Component {
                 <div className="row">
                     <div className="col-sm-2"><strong>Languages:</strong></div>
                     <div className="col-sm-7">Strong: PHP<br/>Knowledgeable: Java, Ruby, Python, Go</div>
-                    <div className="col-sm-3"><i className="fab fa-php fa-3x"></i>&nbsp;&nbsp;<i className="fab fa-python fa-3x"></i></div>
+                    <div className="col-sm-3"><FontAwesomeIcon icon={["fab", "php"]} size="3x" />&nbsp;&nbsp;<FontAwesomeIcon icon={["fab", "python"]} size="3x" /></div>
                   </div>
                   <div className="row mt-3">
                     <div className="col-sm-2"><strong>WebDev:</strong></div>
                     <div className="col-sm-7">Strong: Laravel, JS, jQuery, Vue, Sass, Ionic<br/>Knowledgeable: Rails, Django, ExpressJS, PWA, Angular, React, React Native</div>
-                    <div className="col-sm-3"><i className="fab fa-laravel fa-3x"></i>&nbsp;&nbsp;<i className="fab fa-vuejs fa-3x"></i>&nbsp;&nbsp;<i className="fab fa-angular fa-3x"></i>&nbsp;&nbsp;<i className="fab fa-react fa-3x"></i></div>
+                    <div className="col-sm-3"><FontAwesomeIcon icon={["fab", "laravel"]} size="3x" />&nbsp;&nbsp;<FontAwesomeIcon icon={["fab", "vuejs"]} size="3x" />&nbsp;&nbsp;<FontAwesomeIcon icon={["fab", "angular"]} size="3x" />&nbsp;&nbsp;<FontAwesomeIcon icon={["fab", "react"]} size="3x" /></div>
                   </div>
                   <div className="row mt-3">
                     <div className="col-sm-2"><strong>Database:</strong></div>
                     <div className="col-sm-7">Strong: MySQL, Postgre SQL<br/>Knowledgeable: Firebase, MongoDB, Redis</div>
-                    <div className="col-sm-3"><i className="fas fa-database fa-3x"></i></div>
+                    <div className="col-sm-3"><FontAwesomeIcon icon={["fas", "database"]} size="3x" /></div>
                   </div>
                   <div className="row mt-3">
                     <div className="col-sm-2"><strong>Others:</strong></div>
                     <div className="col-sm-7">Arduino, IoT, Linux, NodeJS, NPM, Git, Gulp, Webpack, Yarn</div>
-                    <div className="col-sm-3"><i className="fab fa-linux fa-3x"></i>&nbsp;&nbsp;<i className="fab fa-node-js fa-3x"></i>&nbsp;&nbsp;<i className="fab fa-npm fa-3x"></i>&nbsp;&nbsp;<i className="fab fa-git fa-3x"></i></div>
+                    <div className="col-sm-3"><FontAwesomeIcon icon={["fab", "linux"]} size="3x" />&nbsp;&nbsp;<FontAwesomeIcon icon={["fab", "node-js"]} size="3x" />&nbsp;&nbsp;<FontAwesomeIcon icon={["fab", "npm"]} size="3x" />&nbsp;&nbsp;<FontAwesomeIcon icon={["fab", "git"]} size="3x" /></div>
                   </div>
               </div>
             </div>
@@ -177,8 +205,8 @@ class App extends Component {
                 <div className="h4 text-center mb-4 title">Portfolio</div>
                 <div className="nav-align-center">
                   <ul className="nav nav-pills nav-pills-primary" role="tablist">
-                    <li className="nav-item"><a className="nav-link active" title="Web-based" data-toggle="tab" href="#web-based" role="tablist"><i className="fas fa-laptop"></i></a></li>
-                    <li className="nav-item"><a className="nav-link" title="Mobile-based" data-toggle="tab" href="#mobile-based" role="tablist"><i className="fas fa-mobile-alt"></i></a></li>
+                    <li className="nav-item"><a className="nav-link active" title="Web-based" data-toggle="tab" href="#web-based" role="tablist"><FontAwesomeIcon icon={["fas", "laptop"]} size="lg" /></a></li>
+                    <li className="nav-item"><a className="nav-link" title="Mobile-based" data-toggle="tab" href="#mobile-based" role="tablist"><FontAwesomeIcon icon={["fas", "mobile-alt"]} size="lg" /></a></li>
                     {/* <li className="nav-item"><a className="nav-link" title="Desktop" data-toggle="tab" href="#desktop" role="tablist"><i className="fa fa-desktop" aria-hidden="true"></i></a></li> */}
                   </ul>
                 </div>
@@ -393,7 +421,7 @@ class App extends Component {
             </div>
           </div>
         </div>
-        <div className="section" id="reference">
+        <div className="section" id="quote">
           <div className="container cc-reference">
             <div className="h4 mb-4 text-center title">Favourite Quotes</div>
             <div className="card" data-aos="zoom-in">
@@ -445,21 +473,21 @@ class App extends Component {
                               <div className="p pb-3"><strong>Feel free to contact me </strong></div>
                               <div className="row mb-3">
                                 <div className="col">
-                                  <div className="input-group"><span className="input-group-addon"><i className="fas fa-user-circle"></i></span>
+                                  <div className="input-group"><span className="input-group-addon"><FontAwesomeIcon icon={["fas", "user-circle"]} /></span>
                                     <input className="form-control" type="text" name="name" placeholder="Name" required="required"/>
                                   </div>
                                 </div>
                               </div>
                               <div className="row mb-3">
                                 <div className="col">
-                                  <div className="input-group"><span className="input-group-addon"><i className="fas fa-file-alt"></i></span>
+                                  <div className="input-group"><span className="input-group-addon"><FontAwesomeIcon icon={["fas", "file-alt"]} /></span>
                                     <input className="form-control" type="text" name="Subject" placeholder="Subject" required="required"/>
                                   </div>
                                 </div>
                               </div>
                               <div className="row mb-3">
                                 <div className="col">
-                                  <div className="input-group"><span className="input-group-addon"><i className="fas fa-envelope"></i></span>
+                                  <div className="input-group"><span className="input-group-addon"><FontAwesomeIcon icon={["fas", "envelope"]} /></span>
                                     <input className="form-control" type="email" name="_replyto" placeholder="E-mail" required="required"/>
                                   </div>
                                 </div>
@@ -501,16 +529,16 @@ class App extends Component {
     </div>
     <footer className="footer">
       <div className="container text-center">
-        <a className="cc-facebook btn btn-link" href="https://facebook.com/rakatonii" target='_blank' rel="noopener noreferrer"><i className="fab fa-facebook fa-2x"></i></a>
-        <a className="cc-twitter btn btn-link" href="https://twitter.com/rakhaviantoni" target='_blank' rel="noopener noreferrer"><i className="fab fa-twitter fa-2x"></i></a>
-        <a className="cc-instagram btn btn-link" href="https://www.instagram.com/rakhaviantoni/" target='_blank' rel="noopener noreferrer"><i className="fab fa-instagram fa-2x"></i></a>
-        <a className="cc-linkedin btn btn-link" href="https://www.linkedin.com/in/rakhaviantoni/" target='_blank' rel="noopener noreferrer"><i className="fab fa-linkedin fa-2x"></i></a>
-        <a className="cc-github btn btn-link" href="https://www.github.com/rakhaviantoni/" target='_blank' rel="noopener noreferrer"><i className="fab fa-github fa-2x"></i></a>
+        <a className="btn btn-link" href="https://facebook.com/rakatonii" target='_blank' rel="noopener noreferrer"><FontAwesomeIcon icon={["fab", "facebook"]} size="2x" className="cc-facebook" /></a>
+        <a className="btn btn-link" href="https://twitter.com/rakhaviantoni" target='_blank' rel="noopener noreferrer"><FontAwesomeIcon icon={["fab", "twitter"]} size="2x" className="cc-twitter" /></a>
+        <a className="btn btn-link" href="https://www.instagram.com/rakhaviantoni/" target='_blank' rel="noopener noreferrer"><FontAwesomeIcon icon={["fab", "instagram"]} size="2x" className="cc-instagram" /></a>
+        <a className="btn btn-link" href="https://www.linkedin.com/in/rakhaviantoni/" target='_blank' rel="noopener noreferrer"><FontAwesomeIcon icon={["fab", "linkedin"]} size="2x" className="cc-linkedin" /></a>
+        <a className="btn btn-link" href="https://www.github.com/rakhaviantoni/" target='_blank' rel="noopener noreferrer"><FontAwesomeIcon icon={["fab", "github"]} size="2x" className="cc-github" /></a>
         {/* <a className="cc-google-plus btn btn-link" href="https://plus.google.com/u/0/+RakhaViantoniPrastya/" target='_blank' rel="noopener noreferrer"><i className="fab fa-google-plus fa-2x"></i></a> */}
       </div>
       <div className="h4 title text-center">{combine(name)}</div>
       <div className="text-center text-muted">
-        <p>&copy; <a href="https://arvipi.com">Arvipi</a>. All rights reserved.</p>
+        <p>&copy; <a href="https://arvipi.com" className="red-text">Arvipi</a>. All rights reserved.</p>
       </div>
     </footer>
       </div>
